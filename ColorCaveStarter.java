@@ -11,15 +11,14 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 
 	public ColorCaveStarter()
 	{
-		frame=new JFrame("Color Cave");
+		frame = new JFrame("Color Cave");
 		frame.setSize(1000,1000);
 		frame.add(this);
 		frame.addMouseListener(this);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		//loader = new RoomLoader(); //need to extend abstract with concrete class
-
+		// loader = new RoomLoader(); //need to extend abstract with concrete class
 	}
 	public void paintComponent(Graphics g)
 	{
@@ -44,15 +43,16 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		g2.setColor(enumToColor(d));
 		r = new Rectangle(200,200,100,200);
 		g2.fill(r);
-
 	}
 
 	public void mouseClicked(MouseEvent e)
 	{
-		if (r.contains(e.getX(),e.getY())){
+		if (r.contains(e.getX(),e.getY()))
+		{
 			System.out.println("Inside the Rectangle");
 			/* Move from room to next room */
-		} else {
+		} 
+		else {
 			System.out.println("Outside the Rectangle");
 		}
 		repaint();
@@ -64,8 +64,10 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 	public void mousePressed(MouseEvent e){}
 	public void mouseReleased(MouseEvent e){}
 
-	private Color enumToColor(Door d){
-		switch(d){
+	private Color enumToColor(Door d)
+	{
+		switch(d)
+		{
 			case RED: return Color.RED;
 			case BLUE: return Color.BLUE;
 			case GREEN: return Color.GREEN;
@@ -80,7 +82,6 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 
 	public static void main(String[] args)
 	{
-		ColorCaveStarter app=new ColorCaveStarter();
+		new ColorCaveStarter();
 	}
-
 }

@@ -1,104 +1,65 @@
 import java.util.HashMap;
 import java.awt.Color;
 import java.io.*;
-public class AbstractRoomLoader implements Serializable {
+public abstract class AbstractRoomLoader implements Serializable 
+{
+	private Room start, end;
+	public abstract void load();
+	public abstract Room getStart();
+	public abstract Room getEnd();
 
-	Room start, end;
-
-	public AbstractRoomLoader(){
-		load();
-		serialize();
-	}
-
-	public abstract void load(){
-
-		// Load up all rooms and doors and add to
-		// your cave.  Also set start and end rooms
-		Room r1 = new Room(">>>  Room 1  <<<","");
-		Room r2 = new Room(">>>  Room 2  <<<","");
-		Room r3 = new Room(">>>  Room 3  <<<","");
-		Room r4 = new Room(">>>  Room 4  <<<","");
-		r1.addDoor(Door.RED,r2);
-		r1.addDoor(Door.GREEN,r3);
-		r2.addDoor(Door.BLUE,r3);
-		r3.addDoor(Door.PINK,r4);
-		start = r1;
-		end = r4;
-
-	}
-
-	public Room getStart(){
-		return start;
-	}
-
-	public Room getEnd(){
-		return end;
-	}
-
-	public void serialize(){
-		String filename = "file.ser";
-
+	public void serialize(String fileName)
+	{
 		// Serialization
 		try
 		{
-				//Saving of object in a file
-				FileOutputStream file = new FileOutputStream(filename);
-				ObjectOutputStream out = new ObjectOutputStream(file);
+			// Saving of object in a file
+			FileOutputStream file = new FileOutputStream(fileName);
+			ObjectOutputStream out = new ObjectOutputStream(file);
 
-				// Method for serialization of object
-				out.writeObject(this);
+			// Method for serialization of object
+			out.writeObject(this);
 
-				out.close();
-				file.close();
+			out.close();
+			file.close();
 
-				System.out.println("RoomLoader has been serialized to =>"+fileName);
-
+			System.out.println("RoomLoader has been serialized to =>"+fileName);
 		}
 
 		catch(IOException ex)
 		{
-				System.out.println("IOException is caught");
+			System.out.println("IOException is caught => "+ex);
 		}
 
 	}
 
-public RoomLoader deserialize(String fileName){
-	RoomLoader rL = null;
+	public AbstractRoomLoader deserialize(String fileName)
+	{
+		AbstractRoomLoader rL = null;
 		try
 		{
-				// Reading the object from a file
-				FileInputStream file = new FileInputStream(fileName);
-				ObjectInputStream in = new ObjectInputStream(file);
+			// Reading the object from a file
+			FileInputStream file = new FileInputStream(fileName);
+			ObjectInputStream in = new ObjectInputStream(file);
 
-				// Method for deserialization of object
-				rL = (RoomLoader)in.readObject();
+			// Method for deserialization of object
+			rL = (AbstractRoomLoader)in.readObject();
 
-				in.close();
-				file.close();
+			in.close();
+			file.close();
 
-				System.out.println("Object has been deserialized ");
-				System.out.println("Start = "+rL.getStart()+", end = "+rL.getEnd());
+			System.out.println("Object has been deserialized  from file "+fileName);
+			System.out.println("Start = "+rL.getStart()+", end = "+rL.getEnd());
 		}
-
 		catch(IOException ex)
 		{
-				System.out.println("IOException is caught");
+			System.out.println("IOException is caught => "+ex);
 		}
-
 		catch(ClassNotFoundException ex)
 		{
-				System.out.println("ClassNotFoundException is caught");
+			System.out.println("ClassNotFoundException is caught => "+ex);
 		}
 
 		return rL;
-
-}
-
-	public static void main(String[]args){
-		RoomLoader rL = new RoomLoader();
-		rL.deserialize("file.ser");
-
 	}
-
-
 }
