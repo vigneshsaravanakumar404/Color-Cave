@@ -7,8 +7,8 @@ public class DumbBot{
 
 	public void load(){
 		loader = new RoomLoader();
-		//loader.load();
-		//loader.deserialize("Test.ser");
+		loader.load();
+		loader.deserialize("RedGreenStart.ser"));
 		currRoom = loader.getStart();
 		str = "["+currRoom.getID()+"]";
 
