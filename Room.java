@@ -54,4 +54,5 @@ public class Room implements Serializable {
 	public String toString() {
 		return this.id + " " + this.name;
 	}
+
 }
