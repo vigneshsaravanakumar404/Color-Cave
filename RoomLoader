@@ -1,7 +1,9 @@
 public class RoomLoader extends AbstractRoomLoader{
 
-    private Room start;
-    private Room end;
+    public RoomLoader(){
+        load();
+        serialize("YellowBlueStart.ser");
+    }
 
     @Override
     public void load() {
@@ -43,4 +45,10 @@ public class RoomLoader extends AbstractRoomLoader{
         return end;
     }
     
+    public static void main(String[] args){
+        AbstractRoomLoader rL = new RoomLoader();
+        rl = rl.deserialize("YellowBlueStart.ser");
+
+    }
+
 }
