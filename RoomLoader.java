@@ -11,6 +11,7 @@ public class RoomLoader extends AbstractRoomLoader{
         // TODO Auto-generated method stub
         // Load up all rooms and doors and add to
         // your cave.  Also set start and end rooms
+
         Room r1 = new Room(">>>  Room 1  <<<","");
         Room r2 = new Room(">>>  Room 2  <<<","");
         Room r3 = new Room(">>>  Room 3  <<<","");
