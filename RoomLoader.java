@@ -1,6 +1,6 @@
-public class RoomLoader extends AbstractRoomLoader{
+public class RoomLoader extends AbstractRoomLoader {
 
-    public RoomLoader(){
+    public RoomLoader() {
         cave = new CaveData();
         load();
         serialize("Aryan.ser");
@@ -8,10 +8,10 @@ public class RoomLoader extends AbstractRoomLoader{
 
     @Override
     public void load() {
-        
+
         // TODO Auto-generated method stub
         // Load up all rooms and doors and add to
-        // your cave.  Also set start and end rooms
+        // your cave. Also set start and end rooms
 
         Room r0 = new Room(">>> Room 0 <<<", "");
         Room r1 = new Room(">>> Room 1 <<<", "");
@@ -54,28 +54,28 @@ public class RoomLoader extends AbstractRoomLoader{
         Room r61 = new Room(">>> Room 61 <<<", "");
         Room r62 = new Room(">>> Room 62 <<<", "");
         Room r63 = new Room(">>> Room 62 <<<", "");
-        
+
         r0.addDoor(Door.RED, r1);
         r0.addDoor(Door.GREEN, r2);
         r0.addDoor(Door.BLUE, r3);
         r0.addDoor(Door.PINK, r4);
 
-        r1.addDoor(Door.PINK,r7);
-        r1.addDoor(Door.YELLOW,r8);
+        r1.addDoor(Door.PINK, r7);
+        r1.addDoor(Door.YELLOW, r8);
 
-        r2.addDoor(Door.RED,r9);
-        r2.addDoor(Door.BLUE,r10);
+        r2.addDoor(Door.RED, r9);
+        r2.addDoor(Door.BLUE, r10);
 
-        r3.addDoor(Door.RED,r12);
-        r3.addDoor(Door.GREEN,r13);
-        r3.addDoor(Door.PINK,r14);
+        r3.addDoor(Door.RED, r12);
+        r3.addDoor(Door.GREEN, r13);
+        r3.addDoor(Door.PINK, r14);
 
-        r4.addDoor(Door.RED,r15);
+        r4.addDoor(Door.RED, r15);
 
-        r7.addDoor(Door.YELLOW,r24);
+        r7.addDoor(Door.YELLOW, r24);
 
-        r8.addDoor(Door.GREEN,r25);
-        r8.addDoor(Door.PINK,r26);
+        r8.addDoor(Door.GREEN, r25);
+        r8.addDoor(Door.PINK, r26);
 
         r9.addDoor(Door.BLUE, r27);
         r9.addDoor(Door.PINK, r28);

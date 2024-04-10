@@ -3,12 +3,16 @@ import java.io.*;
 public abstract class AbstractRoomLoader implements Serializable {
 
 	protected Room start, end;
+
 	public abstract void load();
+
 	public abstract Room getStart();
+
 	public abstract Room getEnd();
 
 	/**
-	 * Serializes the current instance of the AbstractRoomLoader class and saves it to a file.
+	 * Serializes the current instance of the AbstractRoomLoader class and saves it
+	 * to a file.
 	 * 
 	 * @param fileName the name of the file to save the serialized object to
 	 */
@@ -41,7 +45,6 @@ public abstract class AbstractRoomLoader implements Serializable {
 	 */
 	public class AbstractRoomLoader {
 
-		
 		public AbstractRoomLoader deserialize(String fileName) {
 			AbstractRoomLoader rL = null;
 			try {

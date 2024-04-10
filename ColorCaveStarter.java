@@ -17,9 +17,9 @@ public class ColorCaveStarter extends JPanel implements MouseListener {
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		loader = new RoomLoader(); //need to extend abstract with concrete class
+		loader = new RoomLoader(); // need to extend abstract with concrete class
 		loader.deserialize("Aryan.ser");
-		//loader.load();
+		// loader.load();
 		room = loader.getStart();
 		end = loader.getEnd();
 	}
@@ -37,9 +37,9 @@ public class ColorCaveStarter extends JPanel implements MouseListener {
 		g2.setFont(new Font("Arial", Font.BOLD, 44));
 		g2.drawString("COLOR CAVE!", 80, 40);
 		g2.setFont(new Font("Arial", Font.BOLD, 24));
-		g2.drawString(room.getName(),80, 80); // uncomment when you have a room
+		g2.drawString(room.getName(), 80, 80); // uncomment when you have a room
 		// object
-		g2.drawString(room.getDescription(),80, 120);
+		g2.drawString(room.getDescription(), 80, 120);
 		g2.drawString("Number of Moves: " + Room.getNumMoves(), 80, 600);
 
 		/////////// PAINT DOORS ///////////////
@@ -59,7 +59,7 @@ public class ColorCaveStarter extends JPanel implements MouseListener {
 		repaint();
 	}
 
-	//! Not Needed
+	// ! Not Needed
 	public void mouseExited(MouseEvent e) {
 	}
 
