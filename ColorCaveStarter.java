@@ -17,8 +17,11 @@ public class ColorCaveStarter extends JPanel implements MouseListener {
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		// loader = new RoomLoader(); //need to extend abstract with concrete class
-
+		loader = new RoomLoader(); //need to extend abstract with concrete class
+		loader.deserialize("Aryan.ser");
+		//loader.load();
+		room = loader.getStart();
+		end = loader.getEnd();
 	}
 
 	public void paintComponent(Graphics g) {
