@@ -1,67 +1,71 @@
 import java.io.*;
-import java.util.*;
-public abstract class AbstractRoomLoader {
 
-	protected CaveData cave;
+public abstract class AbstractRoomLoader implements Serializable {
+
+	protected Room start, end;
 
 	public abstract void load();
 
-	public Room getStart(){  return cave.getStart(); }
+	public abstract Room getStart();
 
-	public Room getEnd(){ return cave.getEnd(); }
+	public abstract Room getEnd();
 
-	public void serialize(String fileName){
-		// Serialization
-		try
-		{
-				//Saving of object in a file
-				FileOutputStream file = new FileOutputStream(fileName);
-				ObjectOutputStream out = new ObjectOutputStream(file);
+	/**
+	 * Serializes the current instance of the AbstractRoomLoader class and saves it
+	 * to a file.
+	 * 
+	 * @param fileName the name of the file to save the serialized object to
+	 */
+	public void serialize(String fileName) {
 
-				// Method for serialization of object
-				out.writeObject(cave);
+		try {
 
-				out.close();
-				file.close();
+			FileOutputStream file = new FileOutputStream(fileName);
+			ObjectOutputStream out = new ObjectOutputStream(file);
 
-				System.out.println("Cave has been serialized to =>"+fileName);
+			out.writeObject(this);
+			out.close();
+			file.close();
+
+			System.out.println("RoomLoader has been serialized to =>" + fileName);
 
 		}
 
-		catch(IOException ex)
-		{
-				System.out.println("IOException is caught => "+ex);
+		catch (IOException ex) {
+			System.out.println("IOException is caught => " + ex);
 		}
 
 	}
 
-public void deserialize(String fileName){
-		try
-		{
-				// Reading the object from a file
+	/**
+	 * Deserializes an AbstractRoomLoader object from the specified file.
+	 *
+	 * @param fileName the name of the file to deserialize from
+	 * @return the deserialized AbstractRoomLoader object
+	 */
+	public class AbstractRoomLoader {
+
+		public AbstractRoomLoader deserialize(String fileName) {
+			AbstractRoomLoader rL = null;
+			try {
 				FileInputStream file = new FileInputStream(fileName);
 				ObjectInputStream in = new ObjectInputStream(file);
 
-				// Method for deserialization of object
-				cave = (CaveData)in.readObject();
+				rL = (AbstractRoomLoader) in.readObject();
 
 				in.close();
 				file.close();
 
-				System.out.println("Object has been deserialized  from file "+fileName);
-				System.out.println("Start = "+getStart()+", end = "+getEnd());
-		}
+				System.out.println("Object has been deserialized from file " + fileName);
+				System.out.println("Start = " + rL.getStart() + ", end = " + rL.getEnd());
+			} catch (IOException ex) {
+				System.out.println("IOException is caught => " + ex);
+			} catch (ClassNotFoundException ex) {
+				System.out.println("ClassNotFoundException is caught => " + ex);
+			}
 
-		catch(IOException ex)
-		{
-				System.out.println("IOException is caught => "+ex);
+			return rL;
 		}
-
-		catch(ClassNotFoundException ex)
-		{
-				System.out.println("ClassNotFoundException is caught => "+ex);
-		}
-
-}
+	}
 
 }
