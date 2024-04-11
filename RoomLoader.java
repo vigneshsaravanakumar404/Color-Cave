@@ -32,7 +32,6 @@ public class RoomLoader extends AbstractRoomLoader {
         rooms[4].addDoor(Door.RED, rooms[15]);
 
         // Add the rest of the doors similarly
-
         for (Room room : rooms) {
             cave.addRoom(room);
         }
