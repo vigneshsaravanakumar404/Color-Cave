@@ -2,81 +2,88 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-public class ColorCaveStarter extends JPanel implements MouseListener
-{
+
+public class ColorCaveStarter extends JPanel implements MouseListener {
 	Rectangle r;
 	Room room, end;
 	JFrame frame;
 	AbstractRoomLoader loader;
 
-	public ColorCaveStarter()
-	{
+	public ColorCaveStarter() {
 		frame = new JFrame("Color Cave");
-		frame.setSize(1000,1000);
+		frame.setSize(1000, 1000);
 		frame.add(this);
 		frame.addMouseListener(this);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		loader = new RoomLoader(); //need to extend abstract with concrete class
+		loader = new RoomLoader(); // need to extend abstract with concrete class
 		loader.deserialize("Aryan.ser");
-		//loader.load();
+		// loader.load();
 		room = loader.getStart();
 		end = loader.getEnd();
 	}
-	public void paintComponent(Graphics g)
-	{
+
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		Graphics2D g2=(Graphics2D)g;
+		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.BLACK);
 
-		g2.fillRect(0,0,frame.getWidth(),frame.getHeight());
+		g2.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 
 		////////////// HEADER /////////////////
 		g2.setColor(Color.WHITE);
 		g2.setFont(new Font("Arial", Font.BOLD, 44));
-		g2.drawString("COLOR CAVE!",80, 40);
+		g2.drawString("COLOR CAVE!", 80, 40);
 		g2.setFont(new Font("Arial", Font.BOLD, 24));
-		//g2.drawString(room.getName(),80, 80);					// uncomment when you have a room object
-		//g2.drawString(room.getDescription(),80, 120);
-		g2.drawString("Number of Moves: "+Room.getNumMoves(),80, 600);
+		// g2.drawString(room.getName(),80, 80); // uncomment when you have a room
+		// object
+		// g2.drawString(room.getDescription(),80, 120);
+		g2.drawString("Number of Moves: " + Room.getNumMoves(), 80, 600);
 
 		/////////// PAINT DOORS ///////////////
 		Door d = Door.RED; // Doors should come from Room object
 		g2.setColor(enumToColor(d));
-		r = new Rectangle(200,200,100,200);
+		r = new Rectangle(200, 200, 100, 200);
 		g2.fill(r);
 	}
 
-	public void mouseClicked(MouseEvent e)
-	{
-		if (r.contains(e.getX(),e.getY()))
-		{
+	public void mouseClicked(MouseEvent e) {
+		if (r.contains(e.getX(), e.getY())) {
 			System.out.println("Inside the Rectangle");
 			/* Move from room to next room */
-		} 
-		else {
+		} else {
 			System.out.println("Outside the Rectangle");
 		}
 		repaint();
 	}
 
 	// Other mouse listener methods we don't need to use
-	public void mouseExited(MouseEvent e){}
-	public void mouseEntered(MouseEvent e){}
-	public void mousePressed(MouseEvent e){}
-	public void mouseReleased(MouseEvent e){}
+	public void mouseExited(MouseEvent e) {
+	}
 
-	private Color enumToColor(Door d)
-	{
-		switch(d)
-		{
-			case RED: return Color.RED;
-			case BLUE: return Color.BLUE;
-			case GREEN: return Color.GREEN;
-			case PINK: return Color.PINK;
-			case YELLOW: return Color.YELLOW;
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	public void mousePressed(MouseEvent e) {
+	}
+
+	public void mouseReleased(MouseEvent e) {
+	}
+
+	private Color enumToColor(Door d) {
+		switch (d) {
+			case RED:
+				return Color.RED;
+			case BLUE:
+				return Color.BLUE;
+			case GREEN:
+				return Color.GREEN;
+			case PINK:
+				return Color.PINK;
+			case YELLOW:
+				return Color.YELLOW;
 
 			default:
 				return Color.WHITE;
@@ -84,8 +91,7 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		new ColorCaveStarter();
 	}
 }
