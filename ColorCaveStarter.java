@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.*;
 public class ColorCaveStarter extends JPanel implements MouseListener
 {
-	ArrayList<Rectangle> rooms;
+	ArrayList<Option> options;
 	Room room, end;
 	JFrame frame;
 	AbstractRoomLoader loader;
@@ -16,7 +16,7 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		loader.load();
 		room = loader.getStart();
 		end = loader.getEnd();
-		rooms = new ArrayList<>();
+		options = new ArrayList<>();
 		frame = new JFrame("Color Cave");
 		frame.setSize(1000,1000);
 		frame.add(this);
@@ -25,6 +25,19 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
+
+	class Option
+	{
+		public Rectangle target;
+		public Door door;
+
+		public Option(Rectangle target, Door door)
+		{
+			this.target = target;
+			this.door = door;
+		}
+	}
+
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
@@ -45,29 +58,28 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 
 		/////////// PAINT DOORS ///////////////
 		Set<Door> doors = room.getDoors();
-		rooms.clear();
 		int spacing = (1000 - doors.size() * 200) / (doors.size() + 1);
 		int x = spacing;
 		for(Door door : doors) 
 		{
-			rooms.add(new Rectangle(x, 200, 150, 300));
+			options.add(new Option(new Rectangle(x, 200, 150, 300), door));
 			x += 200 + spacing;
 
 			g2.setColor(enumToColor(door));
-			g2.fill(rooms.get(rooms.size() - 1));
+			g2.fill(options.get(options.size() - 1).target);
 		}
 	}
 
 	public void mouseClicked(MouseEvent e)
 	{
-		/*if (r.contains(e.getX(),e.getY()))
+		for(Option option : options)
 		{
-			System.out.println("Inside the Rectangle");
-			/* Move from room to next room */
-		/*} 
-		else {
-			System.out.println("Outside the Rectangle");
-		}*/
+			if(option.target.contains(e.getX(), e.getY()))
+			{
+				room = room.enter(option.door);
+			}
+		}
+		options.clear();
 		repaint();
 	}
 
