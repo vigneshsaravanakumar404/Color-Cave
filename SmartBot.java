@@ -6,13 +6,12 @@ public class SmartBot {
     private Room currRoom;
     private AbstractRoomLoader loader;
     private String str;
-    private int stepCost = 0;
 
     // Initialize
     public void load() {
         loader = new RoomLoader();
         loader.load();
-        loader.deserialize("Aryan.ser");
+        loader.deserialize("CycleMonster.ser");
         currRoom = loader.getStart();
         str = "[" + currRoom.getID() + "]";
     }
@@ -32,12 +31,12 @@ public class SmartBot {
                 currRoom = currRoom.enter(d);
                 str += " -> [" + currRoom.getID() + "]";
             }
+            System.out.println("Following Route with step cost: " + path.size() + " steps");
         }
 
         // Print the results
-        System.out.println("Found the End! " + Room.getNumMoves() + " steps");
+        System.out.println("Found the End in " + Room.getNumMoves() + " steps");
         System.out.println("Path: " + str);
-        System.out.println("Step Cost: " + stepCost);
     }
 
     private List<Door> aStarSearch(Room start, Room goal) {
@@ -65,8 +64,6 @@ public class SmartBot {
             Node current = openRooms.poll();
             if (previous != null) {
                 List<Door> path = reconstructPath(cameFrom, previous); // Backtrack
-                System.out.println("Backtracking with step cost: " + path.size());
-                stepCost += path.size();
             }
 
             // If the current room is the goal room, return the path
@@ -81,6 +78,7 @@ public class SmartBot {
 
                 // Go to the neighbor room
                 Room neighborRoom = currentRoom.enter(d);
+
                 int tentativeGScore = gScore.getOrDefault(currentRoom, Integer.MAX_VALUE) + 1;
 
                 if (tentativeGScore < gScore.getOrDefault(neighborRoom, Integer.MAX_VALUE)) {
@@ -90,11 +88,12 @@ public class SmartBot {
                     openRooms.add(new Node(neighborRoom, d, tentativeGScore, fScore.get(neighborRoom)));
                 }
                 System.out.print(neighborRoom.getID() + " ");
-                currentRoom.enter(d); // Go back to the current room
+
+                List<Door> path = reconstructPath(cameFrom, neighborRoom); // Backtrack
+
                 i++;
             }
-            System.out.println("]\t Step Cost: " + (i * 2));
-            stepCost += i * 2;
+            System.out.println("]");
             previous = currentRoom; // Set the previous room to the current room
         }
         return null;
