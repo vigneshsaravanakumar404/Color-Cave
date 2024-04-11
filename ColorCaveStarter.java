@@ -69,6 +69,9 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		g2.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 		g2.setColor(Color.LIGHT_GRAY);
 		g2.fillRect(0, 600, frame.getWidth(), frame.getHeight() - 600);
+		g2.setColor(Color.BLACK);
+		g2.setStroke(new BasicStroke(20));
+		g2.drawRect(10, 10, frame.getWidth() - 35, frame.getHeight() - 35);
 
 		if(started && !won)
 		{
@@ -87,15 +90,23 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 			options.clear();
 
 			int spacing = (1000 - doors.size() * 200) / (doors.size() + 1);
-			int x = spacing;
+			int x = spacing + 15;
 
 			for(Door door : doors) 
 			{
 				options.add(new Option(new Rectangle(x, 300, 150, 300), door));
-				x += 200 + spacing;
 
 				g2.setColor(enumToColor(door));
 				g2.fill(options.get(options.size() - 1).target);
+				g2.setColor(new Color(g2.getColor().getRed() / 2, g2.getColor().getGreen() / 2, g2.getColor().getBlue() / 2));
+				g2.fillRect(x + 10, 310, 60, 135);
+				g2.fillRect(x + 80, 310, 60, 135);
+				g2.fillRect(x + 10, 455, 60, 135);
+				g2.fillRect(x + 80, 455, 60, 135);
+				g2.setColor(Color.ORANGE);
+				g2.fillOval(x + 10, 440, 20, 20);
+
+				x += 200 + spacing;
 			}
 		}
 		else if(!started)
