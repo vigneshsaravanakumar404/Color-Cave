@@ -10,6 +10,7 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 	AbstractRoomLoader loader;
 	boolean started;
 	boolean won;
+	long startTime;
 
 	public ColorCaveStarter()
 	{
@@ -19,6 +20,9 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		room = loader.getStart();
 		end = loader.getEnd();
 		options = new ArrayList<>();
+		started = false;
+		won = false;
+
 		frame = new JFrame("Color Cave");
 		frame.setSize(1000,1000);
 		frame.add(this);
@@ -26,8 +30,13 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		started = true;
-		won = false;
+
+		new java.util.Timer().scheduleAtFixedRate(new TimerTask() {
+			public void run() 
+			{
+				repaint();
+			}
+		}, 0, 100);
 	}
 
 	class Option
@@ -62,13 +71,16 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 			g2.setFont(new Font("Century Gothic", Font.BOLD, 48));
 			g2.drawString(room.getName(), 20, 675);
 			g2.drawString(room.getDescription(), 20, 750);
-			g2.drawString("Time: " + Room.getNumMoves(), 20, 825);
+			g2.drawString("Time: " + (Math.round((System.currentTimeMillis() - startTime) / 100)) / 10.0, 20, 825);
 			g2.drawString("Number of Moves: " + Room.getNumMoves(), 20, 900);
 
 			/////////// PAINT DOORS ///////////////
 			Set<Door> doors = room.getDoors();
+			options.clear();
+
 			int spacing = (1000 - doors.size() * 200) / (doors.size() + 1);
 			int x = spacing;
+
 			for(Door door : doors) 
 			{
 				options.add(new Option(new Rectangle(x, 300, 150, 300), door));
@@ -113,7 +125,6 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 
 		}
 
-		options.clear();
 		repaint();
 	}
 
