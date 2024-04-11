@@ -7,7 +7,7 @@ public class DumbBot {
 	public void load() {
 		loader = new RoomLoader();
 		loader.load();
-		loader.deserialize("CycleMonster.ser");
+		loader.deserialize("Mazes/CycleMonster.ser");
 		currRoom = loader.getStart();
 		str = "[" + currRoom.getID() + "]";
 

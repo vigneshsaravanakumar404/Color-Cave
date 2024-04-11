@@ -3,7 +3,7 @@ public class RoomLoader extends AbstractRoomLoader {
     public RoomLoader() {
         cave = new CaveData();
         load();
-        serialize("Aryan.ser");
+        serialize("Mazes/Aryan.ser");
     }
 
     @Override
