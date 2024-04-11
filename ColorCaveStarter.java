@@ -11,7 +11,7 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 
 	public ColorCaveStarter()
 	{
-		loader = new RoomLoader(); //need to extend abstract with concrete class
+		loader = new RoomLoader();
 		loader.deserialize("Aryan.ser");
 		loader.load();
 		room = loader.getStart();
@@ -49,12 +49,13 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 
 		////////////// HEADER /////////////////
 		g2.setColor(Color.WHITE);
-		g2.setFont(new Font("Arial", Font.BOLD, 44));
-		g2.drawString("COLOR CAVE!",80, 40);
-		g2.setFont(new Font("Arial", Font.BOLD, 24));
-		//g2.drawString(room.getName(),80, 80);					// uncomment when you have a room object
-		//g2.drawString(room.getDescription(),80, 120);
-		g2.drawString("Number of Moves: " + Room.getNumMoves(),80, 600);
+		g2.setFont(new Font("Century Gothic", Font.BOLD, 100));
+		g2.drawString("COLOR CAVE!", 140, 200);
+		g2.setFont(new Font("Century Gothic", Font.BOLD, 48));
+		g2.drawString(room.getName(), 20, 675);
+		g2.drawString(room.getDescription(), 20, 750);
+		g2.drawString("Time: " + Room.getNumMoves(), 20, 825);
+		g2.drawString("Number of Moves: " + Room.getNumMoves(), 20, 900);
 
 		/////////// PAINT DOORS ///////////////
 		Set<Door> doors = room.getDoors();
@@ -62,7 +63,7 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		int x = spacing;
 		for(Door door : doors) 
 		{
-			options.add(new Option(new Rectangle(x, 200, 150, 300), door));
+			options.add(new Option(new Rectangle(x, 300, 150, 300), door));
 			x += 200 + spacing;
 
 			g2.setColor(enumToColor(door));
