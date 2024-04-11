@@ -11,6 +11,8 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 	boolean started;
 	boolean won;
 	long startTime;
+	double currentTime;
+	Rectangle button;
 
 	public ColorCaveStarter()
 	{
@@ -30,11 +32,17 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		button = new Rectangle(300, 700, 400, 100);
 
 		new java.util.Timer().scheduleAtFixedRate(new TimerTask() {
 			public void run() 
 			{
-				repaint();
+				if(started && !won)
+				{
+					currentTime = (Math.round((System.currentTimeMillis() - startTime) / 100)) / 10.0;
+					
+					repaint();
+				}
 			}
 		}, 0, 100);
 	}
@@ -71,7 +79,7 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 			g2.setFont(new Font("Century Gothic", Font.BOLD, 48));
 			g2.drawString(room.getName(), 20, 675);
 			g2.drawString(room.getDescription(), 20, 750);
-			g2.drawString("Time: " + (Math.round((System.currentTimeMillis() - startTime) / 100)) / 10.0, 20, 825);
+			g2.drawString("Time: " + currentTime, 20, 825);
 			g2.drawString("Number of Moves: " + Room.getNumMoves(), 20, 900);
 
 			/////////// PAINT DOORS ///////////////
@@ -92,7 +100,21 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		}
 		else if(!started)
 		{
-
+			g2.setColor(Color.DARK_GRAY);
+			g2.setFont(new Font("Century Gothic", Font.BOLD, 100));
+			g2.drawString("COLOR CAVE!", 140, 200);
+			g2.setFont(new Font("Century Gothic", Font.BOLD, 48));
+			g2.drawString("Instructions", 375, 300);
+			g2.setFont(new Font("Century Gothic", Font.PLAIN, 36));
+			g2.drawString("1. Navigate the maze by clicking on doors.", 100, 360);
+			g2.drawString("2. Each door leads to its corresponding room.", 100, 410);
+			g2.drawString("3. Try to reach the end as quick as possible!", 100, 460);
+			g2.drawString("4. Click BEGIN to start.", 100, 510);
+			g2.setColor(Color.BLACK);
+			g2.fill(button);
+			g2.setColor(Color.WHITE);
+			g2.setFont(new Font("Century Gothic", Font.BOLD, 48));
+			g2.drawString("BEGIN", 435, 765);
 		}
 		else if(won)
 		{
@@ -118,7 +140,11 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		}
 		else if(!started)
 		{
-
+			if(button.contains(e.getX(), e.getY()))
+			{
+				started = true;
+				startTime = System.currentTimeMillis();
+			}
 		}
 		else if(won)
 		{
