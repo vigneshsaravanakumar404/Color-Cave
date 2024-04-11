@@ -26,7 +26,7 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		started = false;
+		started = true;
 		won = false;
 	}
 
@@ -47,14 +47,16 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D)g;
-		g2.setColor(Color.BLACK);
 
-		g2.fillRect(0,0,frame.getWidth(),frame.getHeight());
+		g2.setColor(Color.WHITE);
+		g2.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+		g2.setColor(Color.LIGHT_GRAY);
+		g2.fillRect(0, 600, frame.getWidth(), frame.getHeight() - 600);
 
 		if(started && !won)
 		{
 			////////////// HEADER /////////////////
-			g2.setColor(Color.WHITE);
+			g2.setColor(Color.DARK_GRAY);
 			g2.setFont(new Font("Century Gothic", Font.BOLD, 100));
 			g2.drawString("COLOR CAVE!", 140, 200);
 			g2.setFont(new Font("Century Gothic", Font.BOLD, 48));
@@ -110,7 +112,7 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		{
 
 		}
-		
+
 		options.clear();
 		repaint();
 	}
