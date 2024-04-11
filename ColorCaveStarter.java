@@ -118,7 +118,19 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		}
 		else if(won)
 		{
-
+			g2.setColor(Color.DARK_GRAY);
+			g2.setFont(new Font("Century Gothic", Font.BOLD, 100));
+			g2.drawString("COLOR CAVE!", 140, 200);
+			g2.setFont(new Font("Century Gothic", Font.BOLD, 48));
+			g2.drawString("GAME OVER", 350, 300);
+			g2.setFont(new Font("Century Gothic", Font.PLAIN, 36));
+			g2.drawString("Total Time: " + currentTime, 350, 360);
+			g2.drawString("Total Moves: " + Room.getNumMoves(), 350, 410);
+			g2.setColor(Color.BLACK);
+			g2.fill(button);
+			g2.setColor(Color.WHITE);
+			g2.setFont(new Font("Century Gothic", Font.BOLD, 48));
+			g2.drawString("EXIT", 460, 765);
 		}
 	}
 
@@ -148,7 +160,10 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		}
 		else if(won)
 		{
-
+			if(button.contains(e.getX(), e.getY()))
+			{
+				System.exit(0);
+			}
 		}
 
 		repaint();
