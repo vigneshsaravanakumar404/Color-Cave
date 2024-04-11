@@ -8,6 +8,8 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 	Room room, end;
 	JFrame frame;
 	AbstractRoomLoader loader;
+	boolean started;
+	boolean won;
 
 	public ColorCaveStarter()
 	{
@@ -24,6 +26,8 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		started = false;
+		won = false;
 	}
 
 	class Option
@@ -47,39 +51,66 @@ public class ColorCaveStarter extends JPanel implements MouseListener
 
 		g2.fillRect(0,0,frame.getWidth(),frame.getHeight());
 
-		////////////// HEADER /////////////////
-		g2.setColor(Color.WHITE);
-		g2.setFont(new Font("Century Gothic", Font.BOLD, 100));
-		g2.drawString("COLOR CAVE!", 140, 200);
-		g2.setFont(new Font("Century Gothic", Font.BOLD, 48));
-		g2.drawString(room.getName(), 20, 675);
-		g2.drawString(room.getDescription(), 20, 750);
-		g2.drawString("Time: " + Room.getNumMoves(), 20, 825);
-		g2.drawString("Number of Moves: " + Room.getNumMoves(), 20, 900);
-
-		/////////// PAINT DOORS ///////////////
-		Set<Door> doors = room.getDoors();
-		int spacing = (1000 - doors.size() * 200) / (doors.size() + 1);
-		int x = spacing;
-		for(Door door : doors) 
+		if(started && !won)
 		{
-			options.add(new Option(new Rectangle(x, 300, 150, 300), door));
-			x += 200 + spacing;
+			////////////// HEADER /////////////////
+			g2.setColor(Color.WHITE);
+			g2.setFont(new Font("Century Gothic", Font.BOLD, 100));
+			g2.drawString("COLOR CAVE!", 140, 200);
+			g2.setFont(new Font("Century Gothic", Font.BOLD, 48));
+			g2.drawString(room.getName(), 20, 675);
+			g2.drawString(room.getDescription(), 20, 750);
+			g2.drawString("Time: " + Room.getNumMoves(), 20, 825);
+			g2.drawString("Number of Moves: " + Room.getNumMoves(), 20, 900);
 
-			g2.setColor(enumToColor(door));
-			g2.fill(options.get(options.size() - 1).target);
+			/////////// PAINT DOORS ///////////////
+			Set<Door> doors = room.getDoors();
+			int spacing = (1000 - doors.size() * 200) / (doors.size() + 1);
+			int x = spacing;
+			for(Door door : doors) 
+			{
+				options.add(new Option(new Rectangle(x, 300, 150, 300), door));
+				x += 200 + spacing;
+
+				g2.setColor(enumToColor(door));
+				g2.fill(options.get(options.size() - 1).target);
+			}
+		}
+		else if(!started)
+		{
+
+		}
+		else if(won)
+		{
+
 		}
 	}
 
 	public void mouseClicked(MouseEvent e)
 	{
-		for(Option option : options)
+		if(started && !won)
 		{
-			if(option.target.contains(e.getX(), e.getY()))
+			for(Option option : options)
 			{
-				room = room.enter(option.door);
+				if(option.target.contains(e.getX(), e.getY()))
+				{
+					room = room.enter(option.door);
+					if(room.equals(end))
+					{
+						won = true;
+					}
+				}
 			}
 		}
+		else if(!started)
+		{
+
+		}
+		else if(won)
+		{
+
+		}
+		
 		options.clear();
 		repaint();
 	}
