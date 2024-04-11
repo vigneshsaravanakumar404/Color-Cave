@@ -32,7 +32,7 @@ public class DumbBot {
 				return d;
 			i++;
 		}
-		return null; 
+		return null;
 	}
 
 	public static void main(String[] args) {
