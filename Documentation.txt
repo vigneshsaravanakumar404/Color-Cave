@@ -1,0 +1,6 @@
+Brief Document Describing your method of loading Data:
+    - @amarsheth19 
+
+
+Short document describing your algorithm:
+    - @vigneshsaravanakumar404
