@@ -6,6 +6,7 @@ public class SmartBot {
     private Room currRoom;
     private AbstractRoomLoader loader;
     private String str;
+    private int stepCost = 0;
 
     // Initialize
     public void load() {
@@ -36,6 +37,7 @@ public class SmartBot {
         // Print the results
         System.out.println("Found the End! " + Room.getNumMoves() + " steps");
         System.out.println("Path: " + str);
+        System.out.println("Step Cost: " + stepCost);
     }
 
     private List<Door> aStarSearch(Room start, Room goal) {
@@ -63,6 +65,8 @@ public class SmartBot {
             Node current = openRooms.poll();
             if (previous != null) {
                 List<Door> path = reconstructPath(cameFrom, previous); // Backtrack
+                System.out.println("Backtracking with step cost: " + path.size());
+                stepCost += path.size();
             }
 
             // If the current room is the goal room, return the path
@@ -71,7 +75,8 @@ public class SmartBot {
                 return reconstructPath(cameFrom, currentRoom);
             }
 
-            System.out.print("Current Room: \t" + currentRoom.getID() + "\t Checking children: ");
+            System.out.print("Current Room: \t" + currentRoom.getID() + "\t Checking children: [ ");
+            int i = 0;
             for (Door d : currentRoom.getDoors()) {
 
                 // Go to the neighbor room
@@ -86,9 +91,10 @@ public class SmartBot {
                 }
                 System.out.print(neighborRoom.getID() + " ");
                 currentRoom.enter(d); // Go back to the current room
-
+                i++;
             }
-            System.out.println();
+            System.out.println("]\t Step Cost: " + (i * 2));
+            stepCost += i * 2;
             previous = currentRoom; // Set the previous room to the current room
         }
         return null;
