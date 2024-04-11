@@ -1,6 +1,1 @@
-Brief Document Describing your method of loading Data:
-    - @amarsheth19 
-
-
-Short document describing your algorithm:
-    - @vigneshsaravanakumar404
+Documentation: https://docs.google.com/document/d/1X0ZXO6nZWOc8uec-gU8V8m3Ps2tI2lmQFSGHVjKd_Po/edit#heading=h.sxt4ps962432
