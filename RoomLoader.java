@@ -3,7 +3,7 @@ public class RoomLoader extends AbstractRoomLoader {
     public RoomLoader() {
         cave = new CaveData();
         load();
-        serialize("Mazes/Aryan.ser");
+        serialize("Aryan.ser");
     }
 
     @Override
@@ -71,7 +71,7 @@ public class RoomLoader extends AbstractRoomLoader {
         r7.addDoor(Door.YELLOW, r24);
 
         r8.addDoor(Door.GREEN, r25);
-        r8.addDoor(Door.PINK, r26);
+        //r8.addDoor(Door.PINK, r26);
 
         r9.addDoor(Door.BLUE, r27);
         r9.addDoor(Door.PINK, r28);
@@ -127,7 +127,7 @@ public class RoomLoader extends AbstractRoomLoader {
         r30.addDoor(Door.YELLOW, r11);
         r25.addDoor(Door.YELLOW, r26);
         r2.addDoor(Door.PINK, r8);
-        r7.addDoor(Door.YELLOW, r40);
+        r7.addDoor(Door.GREEN, r40);
 
         cave.addRoom(r0);
         cave.addRoom(r1);
