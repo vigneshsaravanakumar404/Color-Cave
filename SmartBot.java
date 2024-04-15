@@ -11,7 +11,7 @@ public class SmartBot {
     public void load() {
         loader = new RoomLoader();
         loader.load();
-        loader.deserialize("CycleMonster.ser");
+        loader.deserialize("Mazes/Simarbir & Company.ser");
         currRoom = loader.getStart();
         str = "[" + currRoom.getID() + "]";
     }
